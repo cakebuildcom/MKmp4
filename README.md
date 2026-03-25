@@ -7,6 +7,9 @@ Creates a MP4 from a WAV or MP3 file, also creates a dynamic image for the MP4.
 * Output goes into a folder **"output"**
 * Moves the source file to a folder **"processed"**
 
+> [!NOTE]
+> Included the required folder you can delete **".gitkeep"** files.
+
 ## Requirements
 * **Windows**
 * **FFmpeg**:  In the same directory as the batch file.
@@ -20,3 +23,4 @@ Creates a MP4 from a WAV or MP3 file, also creates a dynamic image for the MP4.
  * Encode date
    
 <img width="1920" height="1080" alt="v00005" src="https://github.com/user-attachments/assets/c177340c-a0f7-471f-8970-ec242e2cfcdd" />
+
