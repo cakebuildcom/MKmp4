@@ -39,6 +39,13 @@ for %%f in ("%SOURCE_DIR%\*.wav" "%SOURCE_DIR%\*.mp3") do (
     echo Processing: %%~nf
 
     REM -----------------------------------------------------------------------------
+    REM Set video/image title based on file type
+    REM -----------------------------------------------------------------------------
+
+    if /i "%%~xf"==".wav" set TITLE_TEXT=WAV TO MP4
+    if /i "%%~xf"==".mp3" set TITLE_TEXT=MP3 TO MP4
+
+    REM -----------------------------------------------------------------------------
     REM Get original file size in MB
     REM -----------------------------------------------------------------------------
 
@@ -65,7 +72,7 @@ for %%f in ("%SOURCE_DIR%\*.wav" "%SOURCE_DIR%\*.mp3") do (
     REM -y                   = overwrite output file without asking
     REM ------------------------------------------------------------------------------
 
-ffmpeg -f lavfi -i color=c=white:s=1920x1080:r=25 -i "%%f" -vf "drawtext=text='%TITLE_TEXT%':fontfile='C\:/Windows/Fonts/arialbd.ttf':fontsize=200:fontcolor=black:x=(w-text_w)/2:y=(h-th)/2-80,drawtext=text='%%~nxf':fontfile='C\:/Windows/Fonts/arialbd.ttf':fontsize=40:fontcolor=black:x=(w-text_w)/2:y=h-th-250,drawtext=text='!FSIZE! MB':fontfile='C\:/Windows/Fonts/arial.ttf':fontsize=30:fontcolor=gray:x=(w-text_w)/2:y=h-th-200,drawtext=text='File Date\: !FDATE!':fontfile='C\:/Windows/Fonts/arial.ttf':fontsize=30:fontcolor=gray:x=(w-text_w)/2:y=h-th-150,drawtext=text='Encode Date\: !ENCODE_DATE!':fontfile='C\:/Windows/Fonts/arial.ttf':fontsize=30:fontcolor=gray:x=(w-text_w)/2:y=h-th-100" -c:v libx264 -tune stillimage -c:a libmp3lame -b:a 320k -shortest -pix_fmt yuv420p -y "%OUTPUT_DIR%\%%~nf.mp4"
+ffmpeg -f lavfi -i color=c=white:s=1920x1080:r=25 -i "%%f" -vf "drawtext=text='!TITLE_TEXT!':fontfile='C\:/Windows/Fonts/arialbd.ttf':fontsize=200:fontcolor=black:x=(w-text_w)/2:y=(h-th)/2-80,drawtext=text='%%~nxf':fontfile='C\:/Windows/Fonts/arialbd.ttf':fontsize=40:fontcolor=black:x=(w-text_w)/2:y=h-th-250,drawtext=text='!FSIZE! MB':fontfile='C\:/Windows/Fonts/arial.ttf':fontsize=30:fontcolor=gray:x=(w-text_w)/2:y=h-th-200,drawtext=text='File Date\: !FDATE!':fontfile='C\:/Windows/Fonts/arial.ttf':fontsize=30:fontcolor=gray:x=(w-text_w)/2:y=h-th-150,drawtext=text='Encode Date\: !ENCODE_DATE!':fontfile='C\:/Windows/Fonts/arial.ttf':fontsize=30:fontcolor=gray:x=(w-text_w)/2:y=h-th-100" -c:v libx264 -tune stillimage -c:a libmp3lame -b:a 320k -shortest -pix_fmt yuv420p -y "%OUTPUT_DIR%\%%~nf.mp4"
 
 REM Filename — 250px from bottom
 REM File size — 200px from bottom
